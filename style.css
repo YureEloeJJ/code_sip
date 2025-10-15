@@ -5,17 +5,31 @@ body {
   padding: 0;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: flex-start; /* Mantém o conteúdo no topo */
   min-height: 100vh;
+  /* NOVO: Adicione um padding aqui para o espaçamento superior */
+  padding-top: 60px; 
+}
+/* style.css */
+
+.main-layout {
+  display: flex; /* Ativa o layout horizontal */
+  justify-content: center; /* Centraliza todo o conjunto (3 colunas) */
+  align-items: flex-start; /* CRUCIAL: Alinha os três itens (info-boxes e container) ao TOPO */
+  width: 100%;
+  max-width: 1200px; /* Limita a largura para melhor visualização */
 }
 
 .container {
   background: white;
-  margin-top: 60px;
+  /* margin-top: 60px; <-- REMOVA ESTA LINHA */
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   padding: 30px;
   width: 400px;
+  
+  /* NOVO: Adiciona espaço entre o centro e as laterais */
+  margin: 0 40px; 
 }
 
 h1 {
@@ -27,11 +41,11 @@ input {
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  margin-top: 15px;
+  margin-top: 10px; /* Reduz a margem para aproximar do campo superior */
   border: 1px solid #ccc;
   border-radius: 6px;
+  box-sizing: border-box; /* Garante que o padding não aumente a largura total */
 }
-
 button {
   margin-top: 10px;
   width: 100%;
@@ -63,4 +77,49 @@ button:hover {
 
 .resultado ul {
   margin: 5px 0 10px 20px;
+}
+/* style.css */
+
+.info-box {
+  background: #ffffff; 
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  width: 250px; /* Largura das caixas laterais */
+  box-sizing: border-box; 
+  height: fit-content; /* Garante que a caixa não se estique mais que o conteúdo */
+}
+
+.info-box h2 {
+  color: #0078d7; 
+  font-size: 1.2em;
+  margin-top: 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.info-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-box li {
+  font-size: 0.95em;
+  color: #333;
+  line-height: 1.6;
+  font-family: monospace; 
+}
+
+/* Novo estilo para o campo de seleção */
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 15px; /* Mantém o espaçamento do topo do h1/título */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box; /* CRUCIAL: Garante que a largura do select seja exatamente a mesma do input e button */
+    height: 40px; /* Ajusta a altura para combinar com o input */
 }

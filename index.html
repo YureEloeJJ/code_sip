@@ -1,30 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Consulta de Códigos SIP</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <div class="container">
-    <h1>Consultar codigo SIP</h1>
+  <div class="main-layout">
 
-    <select  id="origemInput" style="margin-top: 15px; width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 6px;">
-      <option value="">Selecione a origem do erro (Obrigatorio)</option>
-      <option value="SISTEMA">Origem IP ZEUS/PABX</option>
-      <option value="CLIENTE">Origem IP Cliente</option>
+    <div class="info-box left-box">
+      <h2>IPS - CENTREX</h2>
+      <ul>
+        <li>CENTREX 1: 45.458.169.12</li>
+        <li>CENTREX 2: 45.458.169.12</li>
+        <li>CENTREX 3: 45.458.169.12</li>
+        <li>CENTREX 4: 45.458.169.12</li>
+      </ul>
 
-    </select>
-    
-    <input type="text" id="codigoInput" placeholder="Digite o erro de retorno (ex: 486)">
-    <button onclick="buscarCodigo()">Buscar</button>
+    </div>
 
-    <div id="resultado" class="resultado"></div>
+    <div class="container">
+      <h1>Consultar codigo SIP</h1>
 
+      <select id="origemInput">
+        <option value="">Selecione a origem do erro (Obrigatorio)</option>
+        <option value="SISTEMA">Origem IP ZEUS/PABX</option>
+        <option value="CLIENTE">Origem IP Cliente</option>
+
+      </select>
+
+      <input type="text" id="codigoInput" placeholder="Digite o erro de retorno (ex: 486)">
+      <button onclick="buscarCodigo()">Buscar</button>
+
+      <div id="resultado" class="resultado"></div>
+    </div>
+
+    <div class="info-box right-box">
+      <h2>IPS - SERVIDORES</h2>
+      <ul>
+        <li>ZEUS: 45.458.169.12</li>
+        <li>ANUNCIADORA: 45.458.169.12</li>
+        <li>TRANCODE: 45.458.169.12</li>
+        <li>FRAGMENTE: 45.458.169.12</li>
+      </ul>
+    </div>
   </div>
-  
   <script src="script.js"></script>
 </body>
+
 </html>
