@@ -1,0 +1,598 @@
+{
+  "sip_response_codes": {
+    "4xx": {
+      "category": "Falhas de Cliente",
+      "description": "Respostas de falha definitiva de um servidor específico. Cliente não deve repetir a mesma requisição sem modificação.",
+      "codes": {
+        "400": {
+          "name": "Bad Request",
+          "description": "Requisição não pôde ser entendida devido à sintaxe malformada",
+          "meaning": "A requisição contém erros de sintaxe ou está malformada",
+          "CLIENTE": {
+            "causes": [
+              "Softphone ou aplicativo SIP enviando mensagens com formato incorreto",
+              "Configurações de codec ou parâmetros SIP incorretas no cliente",
+              "Versão desatualizada do software cliente gerando mensagens inválidas"
+            ],
+            "solutions": [
+              "Atualizar o software do cliente (softphone/aplicativo)",
+              "Verificar e corrigir configurações SIP no cliente",
+              "Validar configurações de codec e parâmetros de rede"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Servidor SIP rejeitando mensagens devido a validação rigorosa",
+              "Incompatibilidade entre versões de protocolo SIP",
+              "Configuração de firewall ou proxy alterando mensagens SIP"
+            ],
+            "solutions": [
+              "Verificar logs do servidor SIP para identificar campos inválidos",
+              "Ajustar configurações de validação no servidor",
+              "Verificar configurações de firewall e proxy SIP"
+            ]
+          }
+        },
+        "401": {
+          "name": "Unauthorized",
+          "description": "Requisição requer autenticação do usuário ou está tentando",
+          "meaning": "O servidor requer credenciais de autenticação válidas",
+          "CLIENTE": {
+            "causes": [
+              "Usuário não inseriu credenciais de login no softphone",
+              "Senha incorreta ou expirada configurada no cliente",
+              "Cliente não suporta o método de autenticação requerido"
+            ],
+            "solutions": [
+              "Verificar e inserir credenciais corretas no softphone",
+              "Atualizar senha no cliente se foi alterada no sistema",
+              "Configurar método de autenticação compatível no cliente"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Servidor de autenticação indisponível",
+              "Configurações de autenticação incorretas no servidor SIP",
+              "Possivel Bloqueio no Zeus"
+            ],
+            "solutions": [
+              "Verificar conectividade com servidor de autenticação",
+              "Validar configurações de autenticação no servidor SIP",
+              "Verificar integridade da base de dados de usuários"
+            ]
+          }
+        },
+        "403": {
+          "name": "Forbidden",
+          "description": "Servidor entendeu a requisição mas recusa cumpri-la",
+          "meaning": "O acesso ao recurso é proibido, mesmo com autenticação",
+          "CLIENTE": {
+            "causes": [
+              "Usuário não possui permissão para realizar chamadas",
+              "Conta do usuário suspensa ou com restrições ativas",
+              "Cliente tentando acessar recursos não autorizados"
+            ],
+            "solutions": [
+              "Verificar permissões da conta do usuário",
+              "Contatar administrador para revisar status da conta",
+              "Verificar se há restrições de horário ou destino ativas"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Políticas de segurança bloqueando o acesso",
+              "Configurações de ACL (Access Control List) restritivas",
+              "Sistema de billing bloqueando por falta de crédito"
+            ],
+            "solutions": [
+              "Revisar políticas de segurança e ACLs no sistema",
+              "Verificar configurações de billing e créditos",
+              "Ajustar permissões de grupo ou perfil do usuário"
+            ]
+          }
+        },
+        "404": {
+          "name": "Not Found",
+          "description": "Usuário não existe no domínio especificado",
+          "meaning": "O servidor tem informação definitiva de que o usuário não existe",
+          "CLIENTE": {
+            "causes": [
+              "Número ou extensão digitada incorretamente pelo usuário",
+              "Configuração de domínio SIP incorreta no cliente",
+              "Cliente tentando chamar número não cadastrado"
+            ],
+            "solutions": [
+              "Verificar se o número/extensão foi digitado corretamente",
+              "Confirmar configuração de domínio SIP no cliente",
+              "Verificar se o destinatário está cadastrado no sistema"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Usuário não cadastrado na base de dados do sistema",
+              "Problemas de sincronização com diretório de usuários",
+              "Configuração de roteamento incorreta no servidor"
+            ],
+            "solutions": [
+              "Verificar se usuário existe na base de dados",
+              "Sincronizar com diretório de usuários (LDAP/AD)",
+              "Verificar configurações de roteamento e dial plan"
+            ]
+          }
+        },
+        "408": {
+          "name": "Request Timeout",
+          "description": "Servidor não conseguiu produzir resposta em tempo adequado",
+          "meaning": "O servidor não conseguiu processar a requisição dentro do tempo limite",
+          "CLIENTE": {
+            "causes": [
+              "Conexão de internet do cliente lenta ou instável",
+              "Configurações de timeout muito baixas no softphone",
+              "Problemas de conectividade de rede do cliente"
+            ],
+            "solutions": [
+              "Verificar qualidade da conexão de internet",
+              "Aumentar valores de timeout no cliente",
+              "Testar conectividade com servidor SIP"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Servidor SIP sobrecarregado ou com alta latência",
+              "Problemas de conectividade entre servidores",
+              "Configurações de timeout muito baixas no servidor"
+            ],
+            "solutions": [
+              "Verificar carga e performance do servidor SIP",
+              "Aumentar valores de timeout no servidor",
+              "Verificar conectividade entre componentes do sistema"
+            ]
+          }
+        },
+        "480": {
+          "name": "Temporarily Unavailable",
+          "description": "Sistema do destinatário contactado mas usuário indisponível",
+          "meaning": "O destinatário foi contactado mas está temporariamente indisponível",
+          "CLIENTE": {
+            "causes": [
+              "Usuário não está logado no softphone ou aplicativo",
+              "Modo 'não perturbe' ou 'ausente' ativo no cliente",
+              "Dispositivo do usuário desconectado ou offline"
+            ],
+            "solutions": [
+              "Verificar se usuário está logado no softphone",
+              "Desativar modo 'não perturbe' se necessário",
+              "Verificar conectividade do dispositivo do usuário"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Servidor de presença indicando usuário indisponível",
+              "Sistema em manutenção ou com instabilidade",
+              "Configurações de status de usuário no sistema"
+            ],
+            "solutions": [
+              "Verificar status do usuário no sistema de presença",
+              "Verificar se há manutenções programadas",
+              "Ajustar configurações de disponibilidade no sistema"
+            ]
+          }
+        },
+        "486": {
+          "name": "Busy Here",
+          "description": "Sistema do destinatário contactado mas usuário ocupado",
+          "meaning": "O destinatário está ocupado e não pode aceitar chamadas adicionais",
+          "CLIENTE": {
+            "causes": [
+              "O telefone/endpoint do cliente está em uso (em outra chamada)",
+              "O cliente atingiu o limite máximo de chamadas configurado no softphone"
+            ],
+            "solutions": [
+              "Verificar se o cliente pode encerrar a chamada atual",
+              "Aumentar o limite de chamadas simultâneas no dispositivo"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "O telefone/endpoint do cliente está em uso (em outra chamada)",
+              "O cliente atingiu o limite máximo de chamadas configurado no softphone"
+            ],
+            "solutions": [
+              "Verificar se o cliente pode encerrar a chamada atual",
+              "Aumentar o limite de chamadas simultâneas no dispositivo"
+            ]
+          }
+        },
+        "487": {
+          "name": "Request Terminated",
+          "description": "Requisição foi terminada por BYE ou CANCEL",
+          "meaning": "A requisição foi cancelada antes da conclusão",
+          "CLIENTE": {
+            "causes": [
+              "Usuário cancelou a chamada antes da conexão",
+              "Timeout de aplicação configurado no cliente",
+              "Cliente perdeu conectividade durante estabelecimento"
+            ],
+            "solutions": [
+              "Verificar se cancelamento foi intencional",
+              "Ajustar timeouts de aplicação no cliente",
+              "Verificar estabilidade da conexão de internet"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Sistema cancelou chamada por política de timeout",
+              "Interrupção de rede entre componentes do sistema",
+              "Servidor cancelou por sobrecarga ou manutenção"
+            ],
+            "solutions": [
+              "Verificar políticas de timeout no sistema",
+              "Verificar conectividade entre servidores",
+              "Verificar logs do sistema para causa do cancelamento"
+            ]
+          }
+        }
+      }
+    },
+    "5xx": {
+      "category": "Falhas de Servidor",
+      "description": "Respostas de falha quando o próprio servidor apresentou erro.",
+      "codes": {
+        "500": {
+          "name": "Server Internal Error",
+          "description": "Servidor encontrou condição inesperada que impediu de cumprir a requisição",
+          "meaning": "Erro interno no servidor que impediu o processamento da requisição",
+          "CLIENTE": {
+            "causes": [
+              "Cliente enviou requisição que causou erro no servidor",
+              "Incompatibilidade entre cliente e versão do servidor",
+              "Configurações do cliente incompatíveis com servidor"
+            ],
+            "solutions": [
+              "Tentar novamente após alguns segundos",
+              "Verificar compatibilidade do cliente com servidor",
+              "Contatar suporte técnico se problema persistir"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Bug no software do servidor SIP",
+              "Falha de configuração no servidor",
+              "Erro de banco de dados ou recurso indisponível"
+            ],
+            "solutions": [
+              "Verificar logs detalhados do servidor",
+              "Reiniciar serviços SIP se necessário",
+              "Verificar integridade do banco de dados"
+            ]
+          }
+        },
+        "501": {
+          "name": "Not Implemented",
+          "description": "Servidor não suporta a funcionalidade requerida",
+          "meaning": "O método SIP não é implementado ou suportado pelo servidor",
+          "CLIENTE": {
+            "causes": [
+              "Cliente tentando usar método SIP não suportado",
+              "Funcionalidade avançada não disponível no servidor",
+              "Cliente com versão mais nova que servidor"
+            ],
+            "solutions": [
+              "Usar método SIP alternativo compatível",
+              "Verificar funcionalidades suportadas pelo servidor",
+              "Atualizar configurações do cliente"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Método SIP não implementado no servidor",
+              "Funcionalidade desabilitada na configuração",
+              "Versão do servidor desatualizada"
+            ],
+            "solutions": [
+              "Implementar funcionalidade necessária",
+              "Atualizar servidor para versão mais recente",
+              "Habilitar funcionalidade na configuração"
+            ]
+          }
+        },
+        "502": {
+          "name": "Bad Gateway",
+          "description": "Servidor recebeu resposta inválida de servidor downstream",
+          "meaning": "O servidor, atuando como gateway, recebeu resposta inválida",
+          "CLIENTE": {
+            "causes": [
+              "Problema na rota de comunicação até o destino",
+              "Gateway intermediário com problemas",
+              "Configuração de proxy incorreta no cliente"
+            ],
+            "solutions": [
+              "Tentar rota alternativa se disponível",
+              "Verificar configurações de proxy no cliente",
+              "Contatar provedor sobre problemas de roteamento"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Servidor downstream com problema ou offline",
+              "Configuração de gateway incorreta",
+              "Protocolo incompatível entre servidores"
+            ],
+            "solutions": [
+              "Verificar status do servidor downstream",
+              "Validar configuração de gateway",
+              "Verificar conectividade entre servidores"
+            ]
+          }
+        },
+        "503": {
+          "name": "Service Unavailable",
+          "description": "Servidor temporariamente indisponível devido a sobrecarga ou manutenção",
+          "meaning": "O servidor está temporariamente indisponível",
+          "CLIENTE": {
+            "causes": [
+              "Servidor sobrecarregado no momento da chamada",
+              "Manutenção programada em andamento",
+              "Limite de usuários simultâneos atingido"
+            ],
+            "solutions": [
+              "Aguardar alguns minutos e tentar novamente",
+              "Verificar se há horário de manutenção programada",
+              "Usar servidor alternativo se disponível"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Servidor com alta carga de processamento",
+              "Recursos do sistema esgotados (CPU/memória)",
+              "Manutenção ou atualização em andamento"
+            ],
+            "solutions": [
+              "Verificar carga do servidor e recursos",
+              "Implementar balanceamento de carga",
+              "Programar manutenções em horários de menor uso"
+            ]
+          }
+        },
+        "504": {
+          "name": "Server Time-out",
+          "description": "Servidor não recebeu resposta oportuna de servidor externo",
+          "meaning": "Timeout ao acessar servidor externo durante processamento",
+          "CLIENTE": {
+            "causes": [
+              "Destino da chamada com problemas de conectividade",
+              "Rota de comunicação lenta ou congestionada",
+              "Timeout configurado muito baixo no sistema"
+            ],
+            "solutions": [
+              "Tentar novamente após alguns minutos",
+              "Verificar se destino está acessível",
+              "Usar rota alternativa se disponível"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Servidor externo lento ou sobrecarregado",
+              "Problemas de rede entre servidores",
+              "Timeout configurado muito baixo no sistema"
+            ],
+            "solutions": [
+              "Aumentar valores de timeout no sistema",
+              "Verificar performance da rede",
+              "Usar servidor alternativo para roteamento"
+            ]
+          }
+        },
+        "505": {
+          "name": "Version Not Supported",
+          "description": "Servidor não suporta a versão do protocolo SIP usada",
+          "meaning": "A versão do protocolo SIP na requisição não é suportada",
+          "CLIENTE": {
+            "causes": [
+              "Cliente usando versão SIP muito nova",
+              "Configuração de versão incorreta no cliente",
+              "Incompatibilidade entre cliente e servidor"
+            ],
+            "solutions": [
+              "Configurar versão SIP compatível no cliente",
+              "Atualizar cliente para versão compatível",
+              "Verificar especificações de compatibilidade"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Servidor com versão SIP desatualizada",
+              "Configuração de versão restritiva no servidor",
+              "Falta de suporte para versões mais recentes"
+            ],
+            "solutions": [
+              "Atualizar servidor para versão mais recente",
+              "Configurar suporte para múltiplas versões SIP",
+              "Implementar negociação de versão automática"
+            ]
+          }
+        }
+      }
+    },
+    "6xx": {
+      "category": "Falhas Globais",
+      "description": "Indicam que um servidor tem informação definitiva sobre um usuário específico, não apenas a instância indicada na Request-URI.",
+      "codes": {
+        "600": {
+          "name": "Busy Everywhere",
+          "description": "Todos os destinos possíveis estão ocupados",
+          "meaning": "O destinatário está ocupado em todos os endpoints possíveis",
+          "CLIENTE": {
+            "causes": [
+              "Usuário ocupado em todos os dispositivos (telefone, softphone, mobile)",
+              "Política do usuário de não aceitar chamadas no momento",
+              "Todos os dispositivos do usuário com limite de chamadas atingido"
+            ],
+            "solutions": [
+              "Aguardar e tentar mais tarde",
+              "Verificar se há horário específico para contato",
+              "Usar correio de voz se disponível"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Sistema detectou ocupação em todos endpoints do usuário",
+              "Configuração de política de chamadas restritiva",
+              "Limite global de chamadas do usuário atingido"
+            ],
+            "solutions": [
+              "Verificar status de todos endpoints do usuário",
+              "Revisar políticas de chamadas simultâneas",
+              "Verificar header Retry-After para tempo de espera"
+            ]
+          }
+        },
+        "603": {
+          "name": "Decline",
+          "description": "Destinatário explicitamente não deseja ou não pode participar",
+          "meaning": "O usuário foi contactado mas explicitamente recusou a chamada",
+          "CLIENTE": {
+            "causes": [
+              "Usuário rejeitou a chamada manualmente no dispositivo",
+              "Modo 'não perturbe' ativo no cliente",
+              "Usuário configurou rejeição automática para o originador"
+            ],
+            "solutions": [
+              "Respeitar a decisão do usuário",
+              "Tentar contato alternativo (email, mensagem)",
+              "Aguardar e tentar mais tarde"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Sistema detectou rejeição explícita do usuário",
+              "Política de bloqueio ativa no sistema",
+              "Falta de crédito ou conta suspensa"
+            ],
+            "solutions": [
+              "Verificar bloqueio ou falta de crédito no painel",
+              "Verificar listas de bloqueio do usuário",
+              "Verificar status da conta do destinatário"
+            ]
+          }
+        },
+        "604": {
+          "name": "Does Not Exist Anywhere",
+          "description": "Servidor tem informação autoritativa que usuário não existe em lugar algum",
+          "meaning": "O usuário definitivamente não existe em nenhum lugar",
+          "CLIENTE": {
+            "causes": [
+              "Número ou extensão não existe no sistema",
+              "Usuário foi removido ou nunca foi cadastrado",
+              "Erro de digitação no número de destino"
+            ],
+            "solutions": [
+              "Verificar se número foi digitado corretamente",
+              "Confirmar se destinatário ainda possui conta ativa",
+              "Usar informações de contato atualizadas"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Usuário não cadastrado em nenhum sistema conectado",
+              "Conta do usuário foi desativada permanentemente",
+              "Número não existe na base de dados global"
+            ],
+            "solutions": [
+              "Verificar existência do usuário na base de dados",
+              "Confirmar se conta não foi migrada para outro sistema",
+              "Verificar sincronização com sistemas externos"
+            ]
+          }
+        },
+        "606": {
+          "name": "Not Acceptable",
+          "description": "Agente do usuário contactado mas aspectos da sessão não são aceitáveis",
+          "meaning": "O usuário quer se comunicar mas não pode suportar adequadamente a sessão",
+          "CLIENTE": {
+            "causes": [
+              "Codec de áudio/vídeo do cliente incompatível",
+              "Largura de banda insuficiente no cliente",
+              "Configurações de mídia incompatíveis"
+            ],
+            "solutions": [
+              "Configurar codecs compatíveis no cliente",
+              "Verificar qualidade da conexão de internet",
+              "Ajustar configurações de qualidade de mídia"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Negociação de codec falhou entre endpoints",
+              "Políticas de mídia restritivas no sistema",
+              "Recursos de mídia indisponíveis no servidor"
+            ],
+            "solutions": [
+              "Verificar codecs suportados pelo sistema",
+              "Ajustar políticas de negociação de mídia",
+              "Verificar disponibilidade de recursos de mídia"
+            ]
+          }
+        },
+        "607": {
+          "name": "Unwanted",
+          "description": "Destinatário não deseja chamada do originador",
+          "meaning": "O destinatário não quer receber chamadas deste originador específico",
+          "CLIENTE": {
+            "causes": [
+              "Número do originador está na lista de bloqueio do usuário",
+              "Usuário configurou filtro para rejeitar chamadas específicas",
+              "Histórico de chamadas indesejadas do originador"
+            ],
+            "solutions": [
+              "Verificar se número está bloqueado pelo destinatário",
+              "Tentar contato através de meio alternativo",
+              "Usar identificação alternativa se apropriado"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Sistema de anti-spam bloqueou o originador",
+              "Lista negra ativa no sistema",
+              "Política de bloqueio automático por comportamento"
+            ],
+            "solutions": [
+              "Verificar listas de bloqueio no sistema",
+              "Revisar políticas de anti-spam",
+              "Verificar reputação do número originador"
+            ]
+          }
+        },
+        "608": {
+          "name": "Rejected",
+          "description": "Chamada rejeitada pelo destinatário",
+          "meaning": "A chamada foi explicitamente rejeitada",
+          "CLIENTE": {
+            "causes": [
+              "Usuário rejeitou manualmente a chamada",
+              "Filtro de chamadas ativo no dispositivo",
+              "Configuração de rejeição automática"
+            ],
+            "solutions": [
+              "Respeitar a rejeição do usuário",
+              "Tentar mais tarde em horário apropriado",
+              "Usar meio alternativo de comunicação"
+            ]
+          },
+          "SISTEMA": {
+            "causes": [
+              "Sistema executou política de rejeição automática",
+              "Filtro de chamadas configurado no sistema",
+              "Rejeição baseada em regras de negócio"
+            ],
+            "solutions": [
+              "Verificar regras de filtro no sistema",
+              "Revisar políticas de rejeição automática",
+              "Verificar configurações de horário de funcionamento"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

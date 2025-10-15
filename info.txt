@@ -1,0 +1,576 @@
+{
+  "sip_response_codes": {
+    "1xx": {
+      "category": "Respostas Provisórias (Informacionais)",
+      "description": "Respostas provisórias indicam que o servidor contactado está realizando alguma ação adicional e ainda não possui uma resposta definitiva.",
+      "codes": {
+        "100": {
+          "name": "Trying",
+          "description": "Busca estendida sendo realizada, proxy deve enviar resposta 100 Trying",
+          "meaning": "Esta resposta indica que a requisição foi recebida pelo próximo servidor e alguma ação não especificada está sendo tomada",
+          "causes": [
+            "Consulta a banco de dados em andamento",
+            "Processamento de requisição complexa",
+            "Busca por localização do usuário"
+          ],
+          "solutions": [
+            "Aguardar resposta final",
+            "Verificar timeout de requisição",
+            "Monitorar logs do servidor"
+          ]
+        },
+        "180": {
+          "name": "Ringing",
+          "description": "O agente de usuário de destino recebeu INVITE e está alertando o usuário",
+          "meaning": "O sistema do destinatário foi contactado e está tocando para alertar o usuário da chamada",
+          "causes": [
+            "Chamada sendo entregue ao destinatário",
+            "Sistema funcionando normalmente",
+            "Usuário sendo alertado da chamada"
+          ],
+          "solutions": [
+            "Aguardar resposta do usuário",
+            "Verificar se há timeout configurado",
+            "Confirmar que o destinatário está disponível"
+          ]
+        },
+        "181": {
+          "name": "Call Is Being Forwarded",
+          "description": "Servidor pode opcionalmente enviar esta resposta para indicar que a chamada está sendo encaminhada",
+          "meaning": "A chamada está sendo redirecionada para um conjunto diferente de destinos",
+          "causes": [
+            "Regras de encaminhamento ativas",
+            "Usuário configurou desvio de chamadas",
+            "Sistema de roteamento automático"
+          ],
+          "solutions": [
+            "Verificar configurações de encaminhamento",
+            "Confirmar destino final",
+            "Aguardar estabelecimento da conexão"
+          ]
+        },
+        "182": {
+          "name": "Queued",
+          "description": "Destino temporariamente indisponível, servidor colocou chamada na fila",
+          "meaning": "O destinatário está temporariamente indisponível, mas o servidor decidiu enfileirar a chamada",
+          "causes": [
+            "Destinatário ocupado temporariamente",
+            "Sistema de filas ativo",
+            "Recursos limitados no momento"
+          ],
+          "solutions": [
+            "Aguardar na fila",
+            "Verificar posição na fila",
+            "Considerar tentar mais tarde"
+          ]
+        },
+        "183": {
+          "name": "Session Progress",
+          "description": "Resposta usada para enviar informações extras sobre progresso da chamada",
+          "meaning": "Informações sobre o progresso da chamada que não se enquadram em outras categorias",
+          "causes": [
+            "Estabelecimento de mídia em progresso",
+            "Negociação de parâmetros",
+            "Configuração de recursos"
+          ],
+          "solutions": [
+            "Aguardar conclusão do estabelecimento",
+            "Monitorar progresso da sessão",
+            "Verificar parâmetros de mídia"
+          ]
+        },
+        "199": {
+          "name": "Early Dialog Terminated",
+          "description": "Enviado pelo servidor para indicar que um diálogo inicial foi terminado",
+          "meaning": "Um diálogo que estava sendo estabelecido foi terminado prematuramente",
+          "causes": [
+            "Cancelamento da chamada",
+            "Erro durante estabelecimento",
+            "Timeout de conexão"
+          ],
+          "solutions": [
+            "Verificar causa do cancelamento",
+            "Tentar nova chamada",
+            "Verificar conectividade de rede"
+          ]
+        }
+      }
+    },
+    "2xx": {
+      "category": "Respostas de Sucesso",
+      "description": "A requisição foi bem-sucedida.",
+      "codes": {
+        "200": {
+          "name": "OK",
+          "description": "A requisição foi bem-sucedida",
+          "meaning": "A requisição foi processada com sucesso e a resposta contém as informações solicitadas",
+          "causes": [
+            "Operação completada com sucesso",
+            "Chamada estabelecida",
+            "Registro realizado"
+          ],
+          "solutions": [
+            "Continuar com a operação normal",
+            "Processar dados da resposta",
+            "Manter sessão ativa"
+          ]
+        },
+        "202": {
+          "name": "Accepted",
+          "description": "Requisição aceita para processamento, mas processamento não completado (depreciado)",
+          "meaning": "A requisição foi aceita mas ainda está sendo processada",
+          "causes": [
+            "Processamento assíncrono",
+            "Operação em lote",
+            "Validação em andamento"
+          ],
+          "solutions": [
+            "Aguardar notificação de conclusão",
+            "Verificar status periodicamente",
+            "Implementar callback se disponível"
+          ]
+        },
+        "204": {
+          "name": "No Notification",
+          "description": "Requisição bem-sucedida, mas resposta correspondente não será recebida",
+          "meaning": "A operação foi bem-sucedida mas não há conteúdo para retornar",
+          "causes": [
+            "Operação de exclusão bem-sucedida",
+            "Atualização sem retorno",
+            "Comando executado com sucesso"
+          ],
+          "solutions": [
+            "Considerar operação concluída",
+            "Não aguardar resposta adicional",
+            "Continuar com próxima operação"
+          ]
+        }
+      }
+    },
+    "3xx": {
+      "category": "Respostas de Redirecionamento",
+      "description": "Fornecem informações sobre nova localização do usuário ou serviços alternativos.",
+      "codes": {
+        "300": {
+          "name": "Multiple Choices",
+          "description": "Endereço resolvido para várias opções, usuário pode escolher",
+          "meaning": "O endereço na requisição foi resolvido para várias escolhas disponíveis",
+          "causes": [
+            "Múltiplos endpoints disponíveis",
+            "Várias opções de contato",
+            "Ambiguidade na resolução"
+          ],
+          "solutions": [
+            "Apresentar opções ao usuário",
+            "Implementar seleção automática",
+            "Usar endpoint preferencial"
+          ]
+        },
+        "301": {
+          "name": "Moved Permanently",
+          "description": "Usuário não pode mais ser encontrado no endereço original",
+          "meaning": "O usuário foi movido permanentemente para um novo endereço",
+          "causes": [
+            "Mudança permanente de localização",
+            "Reestruturação do sistema",
+            "Migração de usuário"
+          ],
+          "solutions": [
+            "Atualizar registros locais",
+            "Usar novo endereço fornecido",
+            "Atualizar cache de localização"
+          ]
+        },
+        "302": {
+          "name": "Moved Temporarily",
+          "description": "Cliente deve tentar novo endereço temporariamente",
+          "meaning": "O usuário está temporariamente em um endereço diferente",
+          "causes": [
+            "Redirecionamento temporário",
+            "Balanceamento de carga",
+            "Manutenção do sistema"
+          ],
+          "solutions": [
+            "Usar endereço temporário",
+            "Respeitar tempo de expiração",
+            "Não atualizar registros permanentes"
+          ]
+        },
+        "305": {
+          "name": "Use Proxy",
+          "description": "Recurso deve ser acessado através do proxy especificado",
+          "meaning": "A requisição deve ser feita através de um proxy específico",
+          "causes": [
+            "Política de segurança",
+            "Requisito de proxy obrigatório",
+            "Controle de acesso"
+          ],
+          "solutions": [
+            "Configurar proxy especificado",
+            "Reenviar requisição via proxy",
+            "Verificar configurações de rede"
+          ]
+        },
+        "380": {
+          "name": "Alternative Service",
+          "description": "Chamada falhou, mas serviços alternativos estão disponíveis",
+          "meaning": "A chamada não foi bem-sucedida mas existem alternativas disponíveis",
+          "causes": [
+            "Serviço principal indisponível",
+            "Recursos alternativos disponíveis",
+            "Opções de fallback"
+          ],
+          "solutions": [
+            "Verificar serviços alternativos",
+            "Implementar fallback automático",
+            "Informar usuário sobre alternativas"
+          ]
+        }
+      }
+    },
+    "4xx": {
+      "category": "Falhas de Cliente",
+      "description": "Respostas de falha definitiva de um servidor específico. Cliente não deve repetir a mesma requisição sem modificação.",
+      "codes": {
+        "400": {
+          "name": "Bad Request",
+          "description": "Requisição não pôde ser entendida devido à sintaxe malformada",
+          "meaning": "A requisição contém erros de sintaxe ou está malformada",
+          "causes": [
+            "Cabeçalhos SIP inválidos",
+            "Sintaxe incorreta na mensagem",
+            "Parâmetros obrigatórios ausentes"
+          ],
+          "solutions": [
+            "Verificar sintaxe da mensagem SIP",
+            "Validar cabeçalhos obrigatórios",
+            "Corrigir formatação da requisição",
+            "Verificar codificação de caracteres"
+          ]
+        },
+        "401": {
+          "name": "Unauthorized",
+          "description": "Requisição requer autenticação do usuário",
+          "meaning": "O servidor requer credenciais de autenticação válidas",
+          "causes": [
+            "Credenciais não fornecidas",
+            "Credenciais inválidas",
+            "Token de autenticação expirado"
+          ],
+          "solutions": [
+            "Fornecer credenciais válidas",
+            "Verificar username e password",
+            "Renovar token de autenticação",
+            "Configurar autenticação digest"
+          ]
+        },
+        "403": {
+          "name": "Forbidden",
+          "description": "Servidor entendeu a requisição mas recusa cumpri-la",
+          "meaning": "O acesso ao recurso é proibido, mesmo com autenticação",
+          "causes": [
+            "Usuário sem permissão",
+            "Política de segurança",
+            "Recurso restrito"
+          ],
+          "solutions": [
+            "Verificar permissões do usuário",
+            "Contatar administrador",
+            "Revisar políticas de acesso",
+            "Verificar configurações de autorização"
+          ]
+        },
+        "404": {
+          "name": "Not Found",
+          "description": "Usuário não existe no domínio especificado",
+          "meaning": "O servidor tem informação definitiva de que o usuário não existe",
+          "causes": [
+            "Usuário não cadastrado",
+            "Domínio incorreto",
+            "Número/endereço inválido"
+          ],
+          "solutions": [
+            "Verificar se usuário existe",
+            "Confirmar domínio correto",
+            "Validar número/endereço",
+            "Verificar registro do usuário"
+          ]
+        },
+        "408": {
+          "name": "Request Timeout",
+          "description": "Servidor não conseguiu produzir resposta em tempo adequado",
+          "meaning": "O servidor não conseguiu processar a requisição dentro do tempo limite",
+          "causes": [
+            "Rede lenta ou congestionada",
+            "Servidor sobrecarregado",
+            "Timeout muito baixo"
+          ],
+          "solutions": [
+            "Aumentar timeout de requisição",
+            "Verificar conectividade de rede",
+            "Tentar novamente mais tarde",
+            "Verificar carga do servidor"
+          ]
+        },
+        "480": {
+          "name": "Temporarily Unavailable",
+          "description": "Sistema do destinatário contactado mas usuário indisponível",
+          "meaning": "O destinatário foi contactado mas está temporariamente indisponível",
+          "causes": [
+            "Usuário não logado",
+            "Modo 'não perturbe' ativo",
+            "Usuário ocupado",
+            "Sistema em manutenção"
+          ],
+          "solutions": [
+            "Tentar mais tarde",
+            "Verificar status do usuário",
+            "Desativar 'não perturbe'",
+            "Usar meio alternativo de contato"
+          ]
+        },
+        "486": {
+          "name": "Busy Here",
+          "description": "Sistema do destinatário contactado mas usuário ocupado",
+          "meaning": "O destinatário está ocupado e não pode aceitar chamadas adicionais",
+          "causes": [
+            "Usuário em outra chamada",
+            "Limite de chamadas atingido",
+            "Recurso ocupado"
+          ],
+          "solutions": [
+            "Aguardar e tentar novamente",
+            "Verificar se há outros endpoints",
+            "Usar serviço de correio de voz",
+            "Implementar callback automático"
+          ]
+        },
+        "487": {
+          "name": "Request Terminated",
+          "description": "Requisição foi terminada por BYE ou CANCEL",
+          "meaning": "A requisição foi cancelada antes da conclusão",
+          "causes": [
+            "Usuário cancelou a chamada",
+            "Timeout de aplicação",
+            "Interrupção de rede"
+          ],
+          "solutions": [
+            "Verificar motivo do cancelamento",
+            "Implementar retry se apropriado",
+            "Notificar usuário sobre cancelamento",
+            "Verificar estabilidade da conexão"
+          ]
+        }
+      }
+    },
+    "5xx": {
+      "category": "Falhas de Servidor",
+      "description": "Respostas de falha quando o próprio servidor apresentou erro.",
+      "codes": {
+        "500": {
+          "name": "Server Internal Error",
+          "description": "Servidor encontrou condição inesperada que impediu de cumprir a requisição",
+          "meaning": "Erro interno no servidor que impediu o processamento da requisição",
+          "causes": [
+            "Bug no software do servidor",
+            "Falha de configuração",
+            "Recurso indisponível",
+            "Erro de banco de dados"
+          ],
+          "solutions": [
+            "Verificar logs do servidor",
+            "Reiniciar serviços se necessário",
+            "Verificar configurações",
+            "Contatar suporte técnico",
+            "Tentar novamente após alguns segundos"
+          ]
+        },
+        "501": {
+          "name": "Not Implemented",
+          "description": "Servidor não suporta a funcionalidade requerida",
+          "meaning": "O método SIP não é implementado ou suportado pelo servidor",
+          "causes": [
+            "Método SIP não suportado",
+            "Funcionalidade não implementada",
+            "Versão do servidor desatualizada"
+          ],
+          "solutions": [
+            "Usar método SIP alternativo",
+            "Atualizar servidor",
+            "Verificar documentação de compatibilidade",
+            "Implementar funcionalidade necessária"
+          ]
+        },
+        "502": {
+          "name": "Bad Gateway",
+          "description": "Servidor recebeu resposta inválida de servidor downstream",
+          "meaning": "O servidor, atuando como gateway, recebeu resposta inválida",
+          "causes": [
+            "Servidor downstream com problema",
+            "Configuração de gateway incorreta",
+            "Protocolo incompatível"
+          ],
+          "solutions": [
+            "Verificar servidor downstream",
+            "Validar configuração de gateway",
+            "Verificar conectividade entre servidores",
+            "Usar rota alternativa"
+          ]
+        },
+        "503": {
+          "name": "Service Unavailable",
+          "description": "Servidor temporariamente indisponível devido a sobrecarga ou manutenção",
+          "meaning": "O servidor está temporariamente indisponível",
+          "causes": [
+            "Servidor sobrecarregado",
+            "Manutenção em andamento",
+            "Recursos esgotados"
+          ],
+          "solutions": [
+            "Aguardar e tentar novamente",
+            "Verificar header Retry-After",
+            "Usar servidor alternativo",
+            "Implementar balanceamento de carga"
+          ]
+        },
+        "504": {
+          "name": "Server Time-out",
+          "description": "Servidor não recebeu resposta oportuna de servidor externo",
+          "meaning": "Timeout ao acessar servidor externo durante processamento",
+          "causes": [
+            "Servidor externo lento",
+            "Problemas de rede",
+            "Timeout configurado muito baixo"
+          ],
+          "solutions": [
+            "Aumentar timeout",
+            "Verificar conectividade",
+            "Usar servidor alternativo",
+            "Verificar performance da rede"
+          ]
+        },
+        "505": {
+          "name": "Version Not Supported",
+          "description": "Servidor não suporta a versão do protocolo SIP usada",
+          "meaning": "A versão do protocolo SIP na requisição não é suportada",
+          "causes": [
+            "Versão SIP incompatível",
+            "Servidor desatualizado",
+            "Cliente usando versão muito nova"
+          ],
+          "solutions": [
+            "Usar versão SIP compatível",
+            "Atualizar servidor",
+            "Verificar compatibilidade de versões",
+            "Implementar negociação de versão"
+          ]
+        }
+      }
+    },
+    "6xx": {
+      "category": "Falhas Globais",
+      "description": "Indicam que um servidor tem informação definitiva sobre um usuário específico, não apenas a instância indicada na Request-URI.",
+      "codes": {
+        "600": {
+          "name": "Busy Everywhere",
+          "description": "Todos os destinos possíveis estão ocupados",
+          "meaning": "O destinatário está ocupado em todos os endpoints possíveis",
+          "causes": [
+            "Usuário ocupado em todos os dispositivos",
+            "Política de não aceitar chamadas",
+            "Todos os recursos ocupados"
+          ],
+          "solutions": [
+            "Aguardar e tentar mais tarde",
+            "Verificar header Retry-After",
+            "Usar correio de voz",
+            "Tentar meio alternativo de contato"
+          ]
+        },
+        "603": {
+          "name": "Decline",
+          "description": "Destinatário explicitamente não deseja ou não pode participar",
+          "meaning": "O usuário foi contactado mas explicitamente recusou a chamada",
+          "causes": [
+            "Usuário rejeitou a chamada",
+            "Modo 'não perturbe' ativo",
+            "Política de bloqueio",
+            "Usuário indisponível por escolha"
+          ],
+          "solutions": [
+            "Respeitar decisão do usuário",
+            "Verificar bloqueio ou falta de credito no painel",
+            "Verificar configurações de 'não perturbe'",
+            "Tentar contato alternativo",
+            "Aguardar e tentar mais tarde",
+            "Verificar listas de bloqueio"
+          ]
+        },
+        "604": {
+          "name": "Does Not Exist Anywhere",
+          "description": "Servidor tem informação autoritativa que usuário não existe em lugar algum",
+          "meaning": "O usuário definitivamente não existe em nenhum lugar",
+          "causes": [
+            "Usuário não cadastrado no sistema",
+            "Conta desativada",
+            "Número/endereço inválido"
+          ],
+          "solutions": [
+            "Verificar se usuário existe",
+            "Confirmar dados de contato",
+            "Verificar se conta está ativa",
+            "Usar informações de contato atualizadas"
+          ]
+        },
+        "606": {
+          "name": "Not Acceptable",
+          "description": "Agente do usuário contactado mas aspectos da sessão não são aceitáveis",
+          "meaning": "O usuário quer se comunicar mas não pode suportar adequadamente a sessão",
+          "causes": [
+            "Codec de mídia incompatível",
+            "Largura de banda insuficiente",
+            "Tipo de mídia não suportado"
+          ],
+          "solutions": [
+            "Negociar codecs compatíveis",
+            "Ajustar parâmetros de mídia",
+            "Verificar capacidades do endpoint",
+            "Usar formato de mídia alternativo"
+          ]
+        },
+        "607": {
+          "name": "Unwanted",
+          "description": "Destinatário não deseja chamada do originador",
+          "meaning": "O destinatário não quer receber chamadas deste originador específico",
+          "causes": [
+            "Número bloqueado",
+            "Lista negra ativa",
+            "Política anti-spam"
+          ],
+          "solutions": [
+            "Verificar se número está bloqueado",
+            "Contatar por meio alternativo",
+            "Verificar listas de bloqueio",
+            "Usar identificação alternativa"
+          ]
+        },
+        "608": {
+          "name": "Rejected",
+          "description": "Chamada rejeitada pelo destinatário",
+          "meaning": "A chamada foi explicitamente rejeitada",
+          "causes": [
+            "Rejeição manual da chamada",
+            "Política de rejeição automática",
+            "Filtro de chamadas ativo"
+          ],
+          "solutions": [
+            "Respeitar rejeição",
+            "Tentar mais tarde",
+            "Usar meio alternativo",
+            "Verificar filtros de chamada"
+          ]
+        }
+      }
+    }
+  }
+}
