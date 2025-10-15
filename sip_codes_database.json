@@ -58,7 +58,8 @@
             "solutions": [
               "Verificar conectividade com servidor de autenticação",
               "Validar configurações de autenticação no servidor SIP",
-              "Verificar integridade da base de dados de usuários"
+              "Verificar integridade da base de dados de usuários",
+              "Liberar ip no admnistration, Ip's acessiveis"
             ]
           }
         },
