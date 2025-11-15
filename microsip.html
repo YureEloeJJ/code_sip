@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar Configuração MicroSIP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container microsip-container">
+        <h1>⚙️ Gerador Automático – MicroSIP / ERAphone</h1>
+        <p>Preencha os dados abaixo e o sistema irá gerar automaticamente um instalador configurado.</p>
+
+        <label>Ramal:</label>
+        <input type="text" id="ramal" placeholder="Ex: 1001">
+
+        <label>Proxy / Domínio SIP:</label>
+        <input type="text" id="proxy" placeholder="Ex: pbx.meudominio.com">
+
+        <label>Senha do Ramal:</label>
+        <input type="password" id="senha" placeholder="Digite a senha">
+
+        <button onclick="gerarArquivo()">Gerar Instalação Automática</button>
+    </div>
+
+    <script>
+        function gerarArquivo() {
+            const ramal = document.getElementById('ramal').value.trim();
+            const proxy = document.getElementById('proxy').value.trim();
+            const senha = document.getElementById('senha').value.trim();
+
+            if (!ramal || !proxy || !senha) {
+                alert("Preencha todos os campos!");
+                return;
+            }
+
+            // ======== SCRIPT .BAT QUE SERÁ GERADO ========
+            const conteudoBat = `
+@echo off
+echo Instalando ERAphone e aplicando configuracoes automáticas...
+echo.
+
+:: Baixar instalador
+echo Baixando ERAphone...
+powershell -Command "Invoke-WebRequest 'https://www.microsip.org/download/private/ERAphone-3.21.4.exe' -OutFile 'ERAphone.exe'"
+
+:: Instalar
+echo Instalando...
+start /wait ERAphone.exe /SILENT
+
+:: Criar arquivo de configuracao
+echo Aplicando configuracoes SIP...
+mkdir "%APPDATA%\\MicroSIP" >nul 2>&1
+
+(
+echo [Account]
+echo username=${ramal}
+echo domain=${proxy}
+echo password=${senha}
+echo display_name=${ramal}
+echo auth_id=${ramal}
+echo proxy=${proxy}
+echo auto_answer=0
+echo transport=udp
+) > "%APPDATA%\\MicroSIP\\account.ini"
+
+echo Concluido!
+echo Iniciando MicroSIP...
+start "" "%APPDATA%\\MicroSIP\\microsip.exe"
+
+exit
+`;
+
+            // Criar arquivo para download
+            const blob = new Blob([conteudoBat], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `instalador_microsip_${ramal}.bat`;
+            a.click();
+
+            URL.revokeObjectURL(url);
+        }
+    </script>
+
+</body>
+
+</html>

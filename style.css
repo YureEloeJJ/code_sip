@@ -1,3 +1,6 @@
+/* ====== CONSULTA SIP ====== */
+
+
 body {
   font-family: "Segoe UI", sans-serif;
   background-color: #f5f7fa;
@@ -122,4 +125,137 @@ select {
     border-radius: 6px;
     box-sizing: border-box; /* CRUCIAL: Garante que a largura do select seja exatamente a mesma do input e button */
     height: 40px; /* Ajusta a altura para combinar com o input */
+}
+
+
+
+
+/* ===== HOME PAGE ===== */
+.home {
+  text-align: center;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 40px;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  width: 260px;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-decoration: none;
+  color: #2c3e50;
+  transition: 0.3s;
+}
+
+.card:hover {
+  background-color: #0078d7;
+  color: white;
+  transform: translateY(-5px);
+}
+
+.card.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ===== HOME NOVA ===== */
+
+.home-container {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.subtitulo {
+  color: #555;
+  margin-top: -10px;
+  margin-bottom: 30px;
+}
+
+.section-title {
+  text-align: left;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  font-size: 1.3em;
+  color: #0078d7;
+  border-left: 4px solid #0078d7;
+  padding-left: 10px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.card {
+  background: white;
+  width: 260px;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+  text-decoration: none;
+  color: #333;
+  transition: 0.25s ease-in-out;
+  cursor: pointer;
+  text-align: left;
+}
+
+.card .icon {
+  font-size: 2.2em;
+  margin-bottom: 10px;
+}
+
+.card h3 {
+  margin: 0;
+  margin-bottom: 8px;
+  font-size: 1.2em;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  background-color: #0078d7;
+  color: white;
+}
+
+.card-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.card-ready {
+  border-left: 4px solid #0078d7;
+}
+
+
+
+/* ====== MICROSIP PAGE ====== */
+.microsip-container {
+  width: 420px;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.microsip-container label {
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
+}
+
+.microsip-container input {
+  margin-bottom: 10px;
 }
